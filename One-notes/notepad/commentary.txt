@@ -1,0 +1,81 @@
+Multiple statistics
+------------------------
+{
+  "data": {
+    "unit-commentary-0022": {
+      "componentid": "EC4575470C5A05211C28DB6A742651D59BEE127C35C628FF5293A564B99A6AF8",
+      "accounts": [
+        {
+          "id": "CLIENT:/AAPI/STATIC_BENCH_20191205.ACCT"
+        }
+      ],
+      "benchmarks": [
+        {
+          "id": "BENCH:SP50"
+        }
+      ]
+    }
+  }
+}
+{
+  "errors": [
+    {
+      "id": "66C62BE0A71403CB",
+      "code": "BadRequest",
+      "title": "Failed to process request",
+      "detail": "Portfolio Commentary does not support more than one column statistic set for any columns in your report at the moment.  Please select a single column statistic for each column and try again.\n"
+    }
+  ]
+}
+FDS_DEMO_C API Commentary - 20BC7E05C19614FBE05E6DAFC7E2C64781C0D422BA468D76624977619AA53E6F
+QAN_C Commentary - 15AE98FFD11B3C192274C6A6221A8236FFD224627E148130DAF8420347AC115D
+BENCH:OEX
+Single freq - 3factor attribution
+------------
+{
+  "data": {
+    "unit-2254": {
+      "componentid": "20BC7E05C19614FBE05E6DAFC7E2C64781C0D422BA468D76624977619AA53E6F",
+      "accounts": [
+        {
+          "id": "BENCH:SPY-USA"
+        }
+      ],
+      "benchmarks": [
+        {
+          "id": "BENCH:SP50"
+        }
+      ]
+    }
+  }
+}
+
+Same acc benchmarks
+-------------------
+{
+  "data": {
+    "unit-commentary-0044": {
+      "componentid": "FB5A3CF2E2654C99E40F905D79E10EBE4AF61B584FBD691FBD5E42FDD6BEC1EB",
+      "accounts": [
+        {
+          "id": "BENCH:SP50"
+        }
+      ],
+      "benchmarks": [
+        {
+          "id": "BENCH:SP50"
+        }
+      ]
+    }
+  }
+}
+{
+  "errors": [
+    {
+      "id": "66C62C80557C9137",
+      "code": "BadRequest",
+      "title": "Failed to process request",
+      "detail": "Failed to generate Portfolio Commentary. Please try again. If the problem persists, please reach out to FactSet Support.\n"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+Feed Approach
+-------------
+source /home/user/mvemula/padd_feed_proto_to_json_converter/X86_64/environment.sh&&padd_feed_proto_to_json /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_202305.proto /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_202305.json
+grep -i A.US#C5PKK padd_option_feed_snapshot_202305.json
+
+Original
+--------
+source /home/user/smondal02/prebuild/padd_proto_to_json_converter/X86_64/environment.sh&&padd_feed_proto_to_json /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_original_202305.proto /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_original_202305.json
+grep -i XSP.CBO#PYYK0 padd_option_feed_snapshot_original_202305.json
+
+
+
+source /home/user/mvemula/padd_feed_proto_to_json_converter/X86_64/environment.sh&&padd_feed_proto_to_json /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_full_month_202305.proto /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_full_month_202305.json
+grep -i NDX.USA#P4KZK padd_option_feed_snapshot_202305.json
+
+
+
+source /home/user/smondal02/prebuild/padd_proto_to_json_converter/X86_64/environment.sh&&
+padd_feed_proto_to_json_copy /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_original_202305.proto /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_202305.json
+
+padd_feed_proto_to_json_copy /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_original_202305_full_month.proto /home/dev/scratch/developers/smondal02/option_feed/padd_option_feed_snapshot_202305_full_month.proto
