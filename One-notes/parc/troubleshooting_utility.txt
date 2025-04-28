@@ -1,0 +1,8 @@
+Calc and calcunit id
+/home/user/smondal02/prebuild/final_change/paapi_troubleshooting_utility.py --date 20250116 --apiCalculationId 7c18239243ce43bc983dcf0306cd4fc9 --apiCalculationUnitId 24  --reason "RPD:143718926" 
+
+API Replay
+/home/user/smondal02/prebuild/final_change/paapi_troubleshooting_utility.py --date 20230317 --apiCalculationId b18f6b4091424388bf4ffdf4dede880c --apiCalculationUnitId 0453ED7A62BA47E07DF8D5C4E1F14F7AAE38A06E8DC05AF481118F5FF8FAF1D3-0  --reason "RPD:114305067" --run_api_replay 
+
+Parc_requester
+/home/user/smondal02/prebuild/final_change/paapi_troubleshooting_utility.py --date 20230318 --apiCalculationId dd5801d3287c4060815b3be2f49b2366 --apiCalculationUnitId 7 --reason "RPD:114305067" --run_parc_requester

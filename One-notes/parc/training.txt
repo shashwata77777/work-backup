@@ -1,0 +1,66 @@
+Training
+--------
+Videos
+-------
+Build Cycle: https://web.microsoftstream.com/video/32ade50b-629f-4856-95e8-521cc254c2fd
+PA3: - https://web.microsoftstream.com/video/e689fbb1-dbe5-4624-8a2e-072e09bd955c
+
+Confluence
+----------
+Lima Dev Ext: https://confluence.factset.com/pages/viewpage.action?spaceKey=centralauth&title=Lima+Chrome+Development+Extension
+Online Assistance: https://my.apps.factset.com/oa/pages/1
+
+review - https://pages.github.factset.com/central-auth/developer-docs/dev_setup.html
+
+
+
+First Day:
+---------
+•	Install Okta Verify On your mobile X - https://factset.sharepoint.com/sites/SecurityTeam-Public/Shared%20Documents/Global%20Protect%20and%20OKTA%20Install.pdf#search=global%20protect
+
+Team, Meetings
+------------------------------
+•	Team - PARC X
+•	India Engineering X
+•	Madhu Vemula
+•	Shashwata Mondal
+•	US Team
+•	Franco
+•	PD Team
+•	US
+•	India
+
+    Meetings
+•	Weeekly Update
+•	Stand Up call
+
+    MYWORKDAY - employee management and organistion tool
+	
+Internal useful resources:
+-------------------------
+    Stack exchange: https://factset.stackenterprise.co
+    Streams
+	Twiki
+	Confluence
+	OA Page
+	Kaleo
+	training doc - http://infonet.factset.com/Training/
+	Product - file://pc.factset.com/dfs/Department/Software%20Engineering/Norwalk/Analytics/Portfolio%20Analysis/PA%20Bootcamp/
+	
+	
+    Lima - https://confluence.factset.com/pages/viewpage.action?spaceKey=centralauth&title=Lima+Chrome+Development+Extension
+	http://is.factset.com/ExtensionStore/?extension=10&action=active
+	
+	Work
+--------------------------
+•	dxr (Code Browser)
+•	opengrok(old code browser)
+•	Internal devlopment GuideLines
+
+Second
+-------
+Review board Account
+•	Fonix Account - https://confluence.factset.com/display/PAR/Fonix+and+Common+Logicals
+•	Perforce Account - get access - http://p4ws.factset.com/perforce-ws/requests/perms
+
+New dev setup - https://pages.github.factset.com/central-auth/developer-docs/dev_setup.html

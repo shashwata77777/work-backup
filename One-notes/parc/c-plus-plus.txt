@@ -1,0 +1,98 @@
+EMPLACE
+-------------
+emplace_back calls to somehthing like
+
+template<typename... Args>
+Void emplace_back(Args&&... args)
+
+
+new (data+size) T(std::forward<Args>(args)...);
+if args are basic - non - rvalue-referenced std::string, the expression will compile to
+
+new (data+size) std::string(str); //str is lvalue - calls std::string::string(const string& rhs)
+meaning the copy constructor will take place.
+
+but, if you use std::move on str, the code will compile to
+new (data+size) std::string(str); //str is r-value reference, calls std::string::string(string&& rhs)
+
+vec.emplace_back("some literal"); 
+new (data+size) std::string("literal"); //calls std::string::string(const char*);
+
+
+
+Redis impl
+
+// Copyright (C) 2022 FactSet Research Systems Inc. All rights reserved.
+
+#include <sw/redis++/redis++.h>
+
+#include <string>
+#include <vector>
+#include <memory>
+#include <unordered_map>
+
+#include "pa/repository/redis_cache_handler.h"
+#include "pa/utilities/paapi_constants.h"
+#include "fds/environment.h"
+
+namespace pa {
+namespace repository {
+
+void RedisCacheHandler::set(
+    const std::string& key,
+    const std::unordered_map<std::string, std::string>& value, size_t expiry)
+{
+  // For test we don't want to add entry to redis. Need to find a better way for
+  // this.
+  if (fds::getenv<std::string>(
+          utilities::constants::log::CLP_LOG_FIELD_ENVIRONMENT) !=
+      utilities::constants::log::CLP_LOG_FIELD_ENVIRONMENT_TEST) {
+    m_connection->hmset(key, value.begin(), value.end());
+    if (expiry != 0) {
+      m_connection->expire(key, std::chrono::seconds(expiry));
+    }
+  }
+}
+
+void RedisCacheHandler::get(const std::string& key,
+                            std::unordered_map<std::string, std::string>& value)
+{
+  m_connection->hgetall(key, std::inserter(value, value.begin()));
+}
+
+bool RedisCacheHandler::delete_key(const std::string& key)
+{
+  const auto res = m_connection->del(key);
+  return (res == 1);
+}
+
+}  // namespace repository
+} 
+
+
+
+
+template<typenameT>
+structremap{
+    // Default: Output type is the same as input type.typedefT type;
+};
+template<>
+structremap<char> {
+    typedefunsignedchartype;
+};
+template<>
+structremap<signedchar> {
+    typedefunsignedchartype;
+};
+template<typenameT>
+voidfoo_impl(intx);
+template<>
+voidfoo_impl<unsignedchar>(intx) {
+    std::cout << "foo_impl<unsigned char>("<< x << ") called\n";
+}
+template<typenameT>
+voidfoo(intx){
+    foo_impl<typenameremap<T>::type>(x);
+}
+
+From <https://stackoverflow.com/questions/17627331/template-specialization-for-multiple-types> 

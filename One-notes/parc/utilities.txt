@@ -1,0 +1,133 @@
+pa_arch_mgr quota
+/home/fonix/data/pa_arch/prod/pants3/local/production 
+
+Parc prebuild override
+http://services-staging.factset.com/prebuild/~smondal02/analytics_batch_logging/service/pa_report_calc/?homecluster=3
+
+Parc local server override
+http://services-staging.factset.com/smondal02/service/pa_report_calc/?homecluster=3
+
+QA override
+http://services-staging.factset.com/qa/service/pa_report_calc/ 
+
+Get Lima Ticket
+For client: - /home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token FDS_DEMO_C 1082777 'Demo test'
+For FDS user: - pub_lima
+
+
+
+
+Host level sys log
+=========================
+/var/log/messages 
+in this file
+
+2025-02-22T09:13:11.347807-05:00 fxfdsav1a45 fdsa_masters.fdsa.service[84668]: 2025-02-22 09:13:11,344 INFO init script started with command 'stop'
+....
+2025-02-22T09:14:40.597026-05:00 fxfdsav1a45 systemd[1]: session-1259786.scope: Killing process 199261 (fdsa_fire_worke) with signal SIGKILL. 
+....
+2025-02-22T09:14:52.842754-05:00 fxfdsav1a45 patchmeup.rb[86850]: ===[ PATCH ]===
+2025-02-22T09:14:52.843437-05:00 fxfdsav1a45 patchmeup.rb[86850]: Starting OS patch process
+
+From <https://rpd.factset.com/summary.aspx?messageid=145516265> 
+
+
+
+
+PARC Flow
+pa3->remote grid -> parc_entrance -> parc
+really looks like this
+
+pa3 -> lima -> fdsav2 router -> remote grid -> fdsav2 router -> parc-entrance -> fdav2 router -> redirector -> fdsav1 master -> fdsav2 worker::PARC
+
+parc_requester can hit any point in that path with --full-url as long as the url and post body are valid. with --in-process it can only hit PARC
+
+
+Edge log - 
+/home/fds/fdsa/fdsa-logs/edge/
+
+From <http://services-staging.factset.com/edge/service/logretriever?remoteHost=fxfdsadeva22&chainId=66607e2ff8da6c44&username=fdsqar_c&serial=945041> 
+
+Live worker log Parc
+log in to the box
+cd ~fdsa/fdsa-logs/live
+
+grep A5C0EA64E8073360 *index*.log
+It will return the worker log file nam
+
+
+
+Print Json
+FDS::JsonObject obj;
+data.ToJson(obj);
+FDS::JsonObject::WriteParams param;
+param.setFormatted(true);
+std::cout << obj.write(param) << std::endl;
+
+Write json to file
+ Link module - fds_json_file_access
+ FDS::FDSJsonSerializer::to_json_file(json, fileName, true);
+
+Parallel Inprocess
+export pa_parallel_in_process=1 
+we need to set this logical when running a local server with sub requests.
+
+
+
+
+PA Rollout
+---------------------
+You don't need to create the feature flag in rollout, you can use the pa::rollout library and use logicals for testing
+An example: http://dxr.factset.com/online/source/src/fia_dmt_utils.cxx#28
+ 
+the logical you can use on the command line would be in the format:
+<proj>_<rollout_flag>
+ 
+So the example above would look like this if you set the logical on the command line for testing:
+export backout_dmt_convert_legacy_currency=1
+
+
+Parcour pa arch manager restart
+--------------------------------------------------
+ssh fxwebdeva01
+sudo -iu pa_arch_mgr
+/etc/fds/init.d/pa_arch/parcour.pa_arch_mgr.init stop
+<WAIT A FEW SECONDS>
+/etc/fds/init.d/pa_arch/parcour.pa_arch_mgr.init start
+
+
+Clp Dropped Logs
+-------------------------
+https://log-admin.factset.io/search/v6/goto/a5ea35969c94fae7cdf2e52fd6de0fcd
+
+
+Where to find fdsa mu boxes
+-----------------------------------------
+/home/data/fdsa/configs/fsm/machines.json
+If you want the MU machines that can run your service, first find the pool in which your service is configured to run.
+parc-entrance, for example, runs in the online-mu pool: http://opengrok.factset.com/source/xref/p4/online/makefds/mainline/services/configs/parc-entrance.json#3 
+Then, from the machine.json, filter the hosts that run the online-mu pool.
+ 
+Note that these are the hosts that can run your service, but that doesn't necessarily mean that each of these hosts is currently running instances of your service, because it's possible (as is now) the number of hosts in the pool than can run your service > scale of your service.
+
+
+
+Go to one of the unit result =>
+Go to log => that is log for that calc batch and from that url we can get lrr request key => 
+Filter for that request key only => then we can get parc lrr dropoff req key =>
+And check further.
+For success
+We can check 
+@fields.FdsaParentRequestKey field in batch log
+
+
+
+
+
+
+
+
+
+
+
+

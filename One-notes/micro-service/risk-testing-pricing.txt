@@ -1,0 +1,22 @@
+
+	1. export  mac_risk_fds_enable_datahub_based_fetch=1 (Logical to go through pa price waterfall)
+2. export FIDATA_DEBUGGING_FILE_PREFIX="PREBUILD" (Logical to dump csv's)
+3. export fdsrpc_pa_fdb_price_host=pa-fdb-price-edge-pr45.factset.io
+export fdsrpc_config_vars=fds_resource_override_stage=pr108
+
+
+
+after exporting all logicals use the parc command 
+ morph fds_demo_c 447342 "checking mac" -- parc_requester --in-process --pa3doc "CLIENT:/MAC/ER/LABS/FI_FUTURES_DB" --report "Section 1|CoverageFI" --download-to . --fmts xlsx,txt --name futures_pre
+ 
+ 
+For QA 
+ 
+ 
+you just need 
+2. export FIDATA_DEBUGGING_FILE_PREFIX="QA" (Logical to dump csv's)
+ 
+ 
+parc command 
+ morph fds_demo_c 447342 "checking mac" -- parc_requester --in-process --pa3doc "CLIENT:/MAC/ER/LABS/FI_FUTURES_DB" --report "Section 1|CoverageFI" --download-to . --fmts xlsx,txt --name futures_qa
+ 

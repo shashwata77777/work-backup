@@ -1,0 +1,22 @@
+API URL		FDSA	API	Parc	Cargo
+--------------------------------------------------------------------------------------
+Prod		Live	Prod	Prod		Prod
+Prod		QA	Prod	Prod		Prod
+Prod		EDGE	Prod	Prod		Prod
+---------------------------------------------------------------------------------------
+Staging		Live	In	STG(same as In)		STG
+Staging		QA	In	QA/STG			STG
+Staging		EDGE	DEV	EDGE/STG		DEV
+
+Inhouse		Live	In	STG(router-stg/redirector-prod)url-live/		STG
+Inhouse		QA	In	QA/STG		STG
+Inhouse		EDGE	DEV	EDGE/STG	DEV
+With Override
+Inhouse		Live	Dev	STG(router-stg/redirector-prod)url-live/	STG
+Inhouse		QA	Dev	QA/STG			STG
+Inhouse		EDGE	DEV	EDGE/STG		DEV
+
+
+
+Concurrency
+API supports a concurrency of 1000 calculation units at any point, 1001th calculation will hit a 429. Apart from that each endpoint has a rate limit of 50 requests in 5 secs window. 51st request in the 5 sec window will hit a 429 and the window is reset every 5 secs

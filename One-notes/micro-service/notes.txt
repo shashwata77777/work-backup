@@ -1,0 +1,25 @@
+/home/fonix/prd_progs/pa/common/aws_s3_feed.sh download_file "pa-data-dictionary-edge.factset.io" "padd_feed_all_diff.proto" "/home/user/mvemula/padd_feed_test"
+
+
+
+Equity Price
+----------------
+equity_price_util --build-db --file-fmt proto --filename eq_data --file-verify false 20240125 20240131 N91LM3-R,N7248214    Generate
+
+equity_price_util --lookup-db eq_data --file-fmt proto 20240125 20240131 N91LM3-R  Read
+
+
+Dictionary
+----------------
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token FDS_DEMO_EUR 763074 'Analytics metadata log test'
+
+bin/pa-data-dictionary-service --port 7743 --dbfile /home/dev/scratch/developers/smondal02/padd_feed_russell.proto --padd_diff_update_disable
+
+bin/pa-data-dictionary-service --port 7743 --dbfile /home/dev/scratch/developers/smondal02/padd_feed_original.proto --padd_diff_update_disable
+
+
+
+~csteifel/scripts/fio_stack_traces.sh
+
+From <https://pages.github.factset.com/pa-microservices/docs/service-setup/>
+We need this script to get the backtrace for a running service in f.io

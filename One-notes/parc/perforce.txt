@@ -1,0 +1,41 @@
+Perforce:
+p4 opened - to get the change number of existing 
+p4 client - to get the client view
+tools are not in mainline so p4view -m will not work need to manually map and update the p4 client file.
+p4view -m 'filename' to get the file in workspace logically
+p4 edit  'filename' - edited for change 
+p4 sync - to get the file into the workspace
+p4 add - add and existing file
+p4 change - new change 
+p4 change 'change no' - open existing change list
+p4 sync MUST BEFORE SUBMIT ********* and remove the .rakefds folder
+p4 submit -c 'change no' - to submit a change no
+
+Rename newly added file.
+edit p4 client mapping
+add newly renamed file p4 add filename 
+revert existing file name
+p4 reopen -c change-no file_name
+
+Adding new file not online
+1st we need create .p4rc and add P4CLIENT=Workspca name
+open p4 client - add manually mapping  -//depot/online/makefds/mainline/
+run p4 add filename
+
+install any module python
+gd
+pyvenv $HOME/fonixpython
+source $HOME/fonixpython/bin/activate
+pip install pandas
+
+Add a file to existing change list
+file not open
+p4 edit -c [changelist] [file]
+file open already
+p4 reopen -c [changelist] [file]
+
+Rakefds all - to runn all
+
+
+
+

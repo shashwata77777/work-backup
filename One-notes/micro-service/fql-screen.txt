@@ -1,0 +1,39 @@
+FQL - Ability to get the content for the universe(typically we use in the column)
+Company side fetches
+Single id all dates single field
+
+
+
+Screening -  Filter the universe of securities based on certain parameter
+Rotate side fetch
+Single date all id all field.
+
+https://factset.sharepoint.com/sites/SymbologyEntityContent/_layouts/15/stream.aspx?id=%2Fsites%2FSymbologyEntityContent%2FShared%20Documents%2FGeneral%2FSymbology%20%2D%20Direct%20Feeds%2FScreening%20Formulas%20%2D%20Recordings%2FIntroduction%20to%20Screening%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview
+
+
+Intro to formula
+------------------------
+https://factset.sharepoint.com/sites/LondonEngineeringNewHire-Summer2023/_layouts/15/stream.aspx?id=%2Fsites%2FLondonEngineeringNewHire%2DSummer2023%2FShared%20Documents%2FEngineering%20101%2FRecordings%2FIntro%20to%20Formulas%2D20230921%5F135843%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview
+
+
+
+https://reviewboard.factset.io/r/1177377/
+
+
+
+
+
+Debug
+-------------
+fql_command_line <path to the custom fql file>
+
+
+
+export FQL_AUDIT_TRACE=2  => trace output
+
+
+export FQL_AUDIT_TRACE_NO_COLOR=1
+ 
+if you want to send the trace to a file via stderr
+
+

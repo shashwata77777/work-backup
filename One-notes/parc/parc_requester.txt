@@ -1,0 +1,17 @@
+Full URL
+morph BDO_PH 559816 "SLT Breach - /live/service/pa_report_calc, RPD:81023972" -- 'parc_requester' '--in-process' '--full-url' 'http://fxpafdsaa38:44146/pool/web/pa_report_calc/?portfolio=CLIENT%3A%2F705-00010-7.ACCT%3CT%3E&document=PRU_DOCUMENTS%3AFactSet%20Monitored%20Report&consumer=pru_pa3_mimic&skip_layout=true&version=1' '--post-body=/home/user/smondal02/prebuild/curator/20210420_BDA42C8A54ACE2F7.json'
+
+Override Json
+parc_requester --in-process --pa3doc 'pa3_documents:default' --report-id report0 --tile-id tile0 --save-parc-json 'p_output.json' --report-format-type STACH --override-json 'override.json'
+
+API Version
+
+/home/fonix/prd_progs/pa/pa_arch/parc_replay
+
+Parc requests differ
+morph FDSQAN_C 415271 "Testing of new diff script" -- python parc_requests_differ.py --versions v331,v332 --full-args parc_requester --in-process --pa3doc client:/pants/Pa3_docs/2DYNAMIC_ACTM_SCREEN_OFDB_D --report-id report0 --tile-id tile0
+
+
+
+Doc Version
+parc_requester --in-process --pa3doc 'pa3_documents:default' --report-id report0 --tile-id tile0 --save-parc-json 'p_output.json' --report-format-type STACH;V2;SIMPLIFIEDROW --override-json '/home/user/smondal02/prebuild/test_meta/metadata_override.json'
