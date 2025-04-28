@@ -1,0 +1,98 @@
+Missing in old
+
+"28D31D9E69D4B8A4A5E7370AEC73B3A124B7BDB4B6F8ED74962F161E551E186F": {
+            "category": "",
+            "directory": "Client Provided",
+            "name": "Super Client Security Master"
+        },
+"44E5D26FD79FE2605AC3F7E30FC1B18B33816B908B8B806DD117773FACCDDFB8": {
+            "category": "",
+            "directory": "Client Provided",
+            "name": "Client Security Master - FactSet"
+        },
+		
+		
+		
+missing in new
+---------------	
+uniqueId	:	Analytics Overrides:PRICE000&Vendor Derived:FISOURCE000	
+		
+uniqueId	:	Personal Analytics Overrides:PRICE001&Vendor Derived:FISOURCE000		
+		
+uniqueId	:	Super Client Analytics Overrides:PRICE000&Vendor Derived:FISOURCE000		
+		
+uniqueId	:	MSCI SAMA ON ACWI ex Selected Countries Custom ESG Index (706166_10617) - Net - Test:PRICE000&Vendor Derived:FISOURCE000
+
+
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token FDS_DEMO_C 1082777 'API issue'
+
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token HARTFORDLIFE 1226189 'Check extra grouping issue in multiport'
+
+FDS_DEMO_C
+--------------------
+Missing in new
+----------------
+Cognity 2 Bmark
+Above Par - Treasury
+MSL_ZI.OFDB - FactSet
+Discount Curve - OIS - FactSet
+JPYFRN_LHMN_TRSY - FactSet
+TRU TESTING - FactSet
+Name Source Order Test
+MSL1_DDS - FactSet
+Speed Improvement -TriTree Prebuild
+Intex prebuild MSL Zane
+JPYFRN_LHMN_TRSY
+TRU TESTING
+Speed Improvement -TriTree Prebuild - FactSet
+TESTWSO - FactSet
+FACTOR Test MSL
+Above Par - OIS
+JPYFRN_LHMN_OIS - FactSet
+MERRILL CMO IO SAMPLEII
+Discount Curve - Treasury
+Below Par - OIS - FactSet
+Below Par - OIS
+Speed Improvement -TriTree PROD
+Speed Improvement -TriTree PROD - FactSet
+Above Par - Treasury - FactSet
+APAC test
+KP test MSL With delay - FactSet
+JPYFLOATER_TRSY - FactSet
+Above Par - OIS - FactSet
+MSL_ZI.OFDB
+Cognity 2 Bmark - FactSet
+JPYFRN_LHMN_OIS
+Barclays Real Durations - Copy
+this is super
+MSL1_DDS
+MERRILL CMO IO SAMPLEII - FactSet
+KP test MSL - FactSet
+JPYFLOATER_TRSY
+Below Par -TRSY - FactSet
+Discount Curve - OIS
+Discount Curve - Treasury - FactSet
+KP test MSL With delay
+KPtestMSL with delay 2 - FactSet
+this is super - FactSet
+"KP test MSL
+Below Par -TRSY
+Name Source Order Test - FactSet
+Barclays Real Durations - Copy - FactSet
+APAC test - FactSet
+KPtestMSL with delay 2
+JPYFLOATER_OIS - FactSet
+
+category changes
+-----------------
+old
+---
+"directory": "Additional Security Masters",
+"name": "Client Security Master - FactSet"
+Client Security Master:PRICE000&Derivative Solutions:FISOURCE000
+
+new
+-----
+"directory": "Client Provided",
+"name": "Client Security Master - FactSet"
+Client Security Master:PRICE000&Derivative Solutions:FISOURCE000

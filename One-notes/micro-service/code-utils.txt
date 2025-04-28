@@ -1,0 +1,92 @@
+Write Price data
+---------------------------
+
+void write_price_data_to_file(const pa::PriceRequest& request,
+                              const fds::proto::DataResponse& price_response,
+                              const std::vector<size_t>& univ_idxs,
+                              const std::string& field)
+{
+  static int i = 0;
+  std::string filename =
+      fire::to_upper(field) + std::to_string(i++) + "_dict.txt";
+  std::cout << filename << std::endl;
+  std::ofstream os("dict.txt");
+  os << "Field:" << field << " : Start-date:" << request.sdate()
+     << " End-date:" << request.edate() << "\n\n";
+  fds::proto::DataRequest sec_req;
+  sec_req.add_fields("NAME");
+  std::vector<std::string> names_vec;
+  std::vector<std::string> id_vec;
+  const auto& univ = request.univ();
+  for (const auto& idx : univ_idxs) {
+    sec_req.add_ids((*univ)[idx]);
+    id_vec.push_back((*univ)[idx]);
+  }
+  fds::RpcClient client;
+  auto response = client.service("security-master")
+                      .path("/security")
+                      .credentials(fds::LimaTicket::from_context_or_system())
+                      .body(sec_req)
+                      .invoke<fds::proto::DataResponse>();
+  if (!response.is_failure()) {
+    for (const auto& column : response.value().columns()) {
+      const auto& names = column.data().string_value();
+      for (const auto& name : names) {
+        names_vec.push_back(name);
+      }
+    }
+  }
+  // Write element to file
+  for (int i = 0; i < id_vec.size(); i++) {
+    os << i << ". Id: " << id_vec[i].c_str() << ":" << names_vec[i].c_str()
+       << "\n";
+  }
+  os << "\n\n";
+  for (int i = 0; i < price_response.columns_size(); i++) {
+    int date = price_response.columns(i).date();
+    int j = 0;
+    switch (price_response.columns(i).data().type()) {
+    case fds::proto::DataVector::DOUBLE: {
+      for (const auto& val : price_response.columns(i).data().double_value()) {
+        os << j++ << ". " << date << " : " << val << "\n";
+      }
+      break;
+    }
+    case fds::proto::DataVector::STRING: {
+      for (const auto& val : price_response.columns(i).data().string_value()) {
+        os << j++ << ". " << date << " : " << val << "\n";
+      }
+      break;
+    }
+    default:
+      break;
+    }
+  }
+  os << "\n";
+}
+
+
+Print Dictionary DB
+
+void print_dict_record(
+    const std::shared_ptr<const DictionaryDatabase>& dictionary_db,
+    const std::string& permid)
+{
+  auto record = dictionary_db->find(permid);
+  const auto& data_item_keys = record->data_item_keys();
+  for (const auto& key : data_item_keys) {
+    std::cout << "Key: " << key << std::endl;
+    if (key == "russell_price" || key == "russell_pa_return") {
+      auto* record_ptr = record->get_data_item_ptr(key);
+      if (record_ptr != nullptr) {
+        const auto& dv_value = record_ptr->get_dbl_ts();
+        for (const auto& val_on_date : dv_value) {
+          std::cout << key << ":: Date: " << val_on_date.m_date
+                    << " Val: " << val_on_date.m_value << std::endl;
+        }
+      } else {
+        std::cout << "Data vector does not exist for key: " << key << std::endl;
+      }
+    }
+  }
+}
