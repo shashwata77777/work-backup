@@ -1,0 +1,107 @@
+EventBUS
+-------------------
+Channel Id - eod.pricing.options.fgp
+{
+  "consumers": [
+    {
+      "id": "pricing.options.cts.datahub.pipeline",
+      "type": "endpoint_post",
+      "action": {
+        "value": "http://cts-one-notifier.factset.io/datahublistener/Pricing"
+      },
+      "subscribe_to_producers": {
+        "eod.pricing.options.fgp": {
+          "min_schema_version": 7,
+          "max_schema_version": 7
+        }
+      },
+      "failure_retry_interval": 1800,
+      "support_team_email": "prasanth.rokkam@factset.com",
+      "alert_style": "Email",
+      "alert_config": "prasanth.rokkam@factset.com",
+      "compress_type": "Identity",
+      "get_old_messages": false
+    },
+    {
+      "id": "pricing.options.Prasanth.email",
+      "type": "email",
+      "action": {
+        "value": "prasanth.rokkam@factset.com"
+      },
+      "subscribe_to_producers": {
+        "eod.pricing.options.fgp": {
+          "min_schema_version": 7,
+          "max_schema_version": 7
+        }
+      },
+      "failure_retry_interval": 1800,
+      "support_team_email": "prasanth.rokkam@factset.com",
+      "alert_style": "Email",
+      "alert_config": "prasanth.rokkam@factset.com",
+      "compress_type": "Identity",
+      "get_old_messages": false
+    }
+  ]
+}
+
+Hi , I was checking the datahub event bus system for "eod.pricing.options.fgp" channel, For testing I subscribed that channel as email-notification
+and I was getting those notification emails but it seems, this channel notifies for all the exchange. But our current requirement is to get notification only for USA exchange
+EOD price update so that can trigger our wombat option feed job. Do we have any separate channel to get notification only for USA exchange or can you create one?
+
+Subscribe
+---------
+POST /Subscriptions
+{
+  "id": "One.More.Unique.Name",
+  "type": "wombat_workflow_submitter",
+  "action": {
+    "workflow_id": "0123456789",
+    "clusters": ["FX1-A", "aws-us-east-1"]
+  },
+  "subscribe_to_producers": {
+    "Product.Related.Channel": {
+      "min_schema_version": 0,
+      "max_schema_version": 1
+    }
+  },
+  "failure_retry_interval": 1800,
+  "alert_style": "Email",
+  "alert_config": "my_teams_oncall@factset.com"
+  "acl": [
+    {
+      "type": "SYSTEM",
+      "username": "GREENWICH\\ABCDEFG"
+    }
+  ],
+  "support_team_email": "my_teams@factset.com",
+}
+
+
+
+
+notification=$1
+
+{
+  "id": "pricing.options.smondal02.wombat-test-trigger-stage",
+  "type": "wombat_workflow_submitter",
+  "action": {
+    "workflow_id": "100406691",
+    "clusters": ["FXInhouse1-A"]
+  },
+  "subscribe_to_producers": {
+    "eod.pricing.options.fgp": {
+      "min_schema_version": 7,
+      "max_schema_version": 7
+    }
+  },
+  "failure_retry_interval": 1800,
+  "alert_style": "Email",
+  "alert_config": "shashwata.mondal@factset.com",
+  "support_team_email": "shashwata.mondal@factset.com",
+  "compress_type": "Identity",
+  "get_old_messages": false
+}
+
+Wombat ex subscribe - Content.DataHub.Dates.ZerodateRollover
+FXInhouse1-A - For Non prod wombat workflow
+FX1-A - For Prod wombat workflow

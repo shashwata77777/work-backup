@@ -1,0 +1,102 @@
+Russell test:
+------------------
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token FDS_DEMO_C 488806 'Demo test'
+
+Local doc -19 resport which are same in old data-dict with modification as datahub(new engine edge)
+-----------------------------------------------------------------------------------------
+new engineedge vs old dict local - https://parcour.factset.io/#!/pants/run/255483/docs - same 19
+parc vs new engine edge- https://parcour.factset.io/#!/pants/run/255484/docs -same 19
+
+Rushin data-dict vs new engine edge - https://parcour.factset.io/#!/pants/run/255488/docs?status=Failed same19
+
+My Local doc - https://parcour.factset.io/#!/pants/run/257322/docs?status=Failed same
+
+New only russell client - https://parcour.factset.io/#!/pants/run/257321/docs?status=Same
+
+Last 3month russell:
+-----------------------------------------------------------------------------------------------------------------------
+Update on russell pricing testing https://bpm.factset.com/browse/FLPA-206
+I am able to get some client runs which matches our requirements, and ran those reports via pants for pa-engine-edge vs pa-data-dictionary-local and got couple of diffs,
+I tried to debug those a bit and found some different response for price values due to different feelback logics(dictionary vs datahub), I discussed the same with Noah and Jim and as Noah suggested to run those reports pa-engine vs parc in that case also I was getting diffs. But when we ran those reports with
+pa-data-dictionary-local vs parc directly the number of diffs was very less for the same set of run.
+Below are the pants runs link which I ran across data-dictionary, pa-engine and parc,
+
+local-data-dictionary vs pa-engine-edge - https://parcour.factset.io/#!/pants/run/255516/docs?status=Invalid,Same,Different :Same:182, Diff:124
+parc vs pa-engine-edge - https://parcour.factset.io/#!/pants/run/255517/docs?status=Invalid,Same,Different :Same:194, Diff:112
+local-data-dictionary vs parc - https://parcour.factset.io/#!/pants/run/255518/docs?status=Invalid,Different :Same:284, Diff:22
+
+-------------------------------------------------------------------------------------------------------------------
+local vs local
+-------------------
+pa-engine-local vs dict-local - https://parcour.factset.io/#!/pants/run/257595/docs?status=Failed
+Reran - https://parcour.factset.io/#!/pants/run/257600/docs?status=Different
+Only diff run - https://parcour.factset.io/#!/pants/run/257618/docs same:15 diff:15
+reran diff - https://parcour.factset.io/#!/pants/run/257619/docs?status=Same
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+dict test original vs russell - https://parcour.factset.io/#!/pants/run/258387/docs
+grep -i A.US#C5BJB padd_option_feed_snapshot_1713799249_202305.json
+
+All Runs
+------------------------------
+
+pa-engine-master-local vs pa-data-dictionary - https://parcour.factset.io/#!/pants/run/257683/docs
+
+parc vs pa-data-dictionary - https://parcour.factset.io/#!/pants/run/257681/docs?status=Different
+
+
+
+--------------------------------------------------------------------------------------------------------------
+pa-engine-edge vs pa-engine-master-local - https://parcour.factset.io/#!/pants/run/257669/docs?status=Different
+
+
+
+
+
+30doc failed due to feelback beyond date
+-----------------------------------------
+https://parcour.factset.io/#!/pants/run/257965/docs - failed
+https://parcour.factset.io/#!/pants/run/257969/docs - success locally modified dict
+
+One Ex - https://parcour.factset.io/#!/pants/run/257623/docs
+
+All Runs
+-------------------
+parc vs pa-data-dictionary - https://parcour.factset.io/#!/pants/run/258244/docs?status=Different,Invalid
+
+pa-engine-master-local vs pa-data-dictionary - https://parcour.factset.io/#!/pants/run/258230/summary?status=Failed - With feelback fix
+											   https://parcour.factset.io/#!/pants/run/258249/docs?status=Different - With original feelback
+											   
+Single diff reproducer - https://parcour.factset.io/#!/pants/run/258259/docs
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+Field: RUSSELL_PRICE : Start-date: 2023-03-17 End-date: 2024-03-18
+-----------------------------------------------------------------
+
+
+
+X8KZHD-R : Rayonier Inc.
+
+
+
+pa-data-dictionary: 594. X8KZHD-R :: 20240318 : nan
+
+
+
+datahub-v1: 594. X8KZHD-R :: 20240318 : 33.040000
+
+
+
+
+Latest feelback fix test 
+-----------------------------
+Diff with lastet fix - https://parcour.factset.io/#!/pants/run/258763/docs
+
+My local fix - https://parcour.factset.io/#!/pants/run/258766/docs
+rerun - https://parcour.factset.io/#!/pants/run/258768/summary
+--------------------------------------------------------
+

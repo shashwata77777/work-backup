@@ -1,0 +1,72 @@
+ void cacheFetchHandler::preparePostbodyFromOverride(const FDS::JsonObject& overrideJson) {
+>     auto &fetchArgs = fetch_args();
+>     PAResultCacheUtils::PADocReport lclDocReport(fetchArgs.get_document_name());
+>     const String path = "/live/service/PADocumentCanon/document/override/" + EncodeURI(lclDocReport.doc().c_str()) + "/report/" + lclDocReport.report() + "/tile/" + lclDocReport.tile();
+>     std::cout<<"Path: "<<path<<std::endl;
+>     String overrideText;
+>     overrideJson.write(overrideText);
+>     fds::RpcClient client;
+>     auto start_time = std::chrono::system_clock::now();
+>     auto result = client.host("services-staging.factset.com").path(path.c_str())
+>       .body("application/json", overrideText.c_str(), overrideText.size())
+>       .operation(fds::RpcClient::RPC_READ_USING_POST_OPERATION)
+>       .credentials(fds::LimaTicket::from_header(context().request().header()))
+>       .invoke<std::string>();
+>
+>     auto end_time = std::chrono::system_clock::now();
+>     const auto time_taken = std::chrono::duration_cast<std::chrono::milliseconds>(
+>       end_time - start_time);
+>
+>     std::cout<<"Time taken to process Doc Canon Service: "<<time_taken.count()<<std::endl;
+>
+>     if (result.is_failure())
+>     {
+>       std::cout<<"Document canon service call failed: "<<result.status().message()<<std::endl;
+>     }
+>
+>     //Testing
+>     FDS::JsonObject bodyJson;
+>     bodyJson.parse(context().request().body().c_str());
+>     FDS::JsonObject resultJson;
+>     resultJson.parse(result.value().c_str());
+>     FDS::JsonObject::WriteParams param;
+>     param.setFormatted(true);
+>     //std::cout << bodyJson.write(param) << std::endl;
+>     //std::cout << resultJson.write(param) << std::endl;
+>     //std::cout << overrideJson.write(param) << std::endl;
+>
+>
+>     std::cout<<"Body Size before: "<<context().request().body().size()<<std::endl;
+>     context().request().body().assign(result.value().c_str(), result.value().size(),fire::HTTPCONTENTSTATUS_COMPLETE);
+>     std::cout<<"Body Size after: "<<context().request().body().size()<<std::endl;
+>   }
+357a403,409
+>     auto postBody = body();
+>     if (postBody["override"].size() > 0)
+>     {
+>       std::cout<<"Inside override json"<<std::endl;
+>       preparePostbodyFromOverride(postBody["override"]);
+>     }
+>     std::cout<<"Trying dispatch request......"<<std::endl;
+370a423
+>     std::cout<<"Dispatch failed should route back to parc......"<<std::endl;
+445a499
+>     std::cout<<"Inside makeServiceRequest..........."<<std::endl;
+470,472c524,536
+<
+<     static const int lrrTime = get_logical_int("PARC_ENTRANCE_LRR_TIME", 10);
+<     parcRequest.header().set(longRunningDeadlineHeader, lrrTime);
+---
+>     for (const auto& ppair: parcRequest.header())
+>     {
+>       std::cout<<ppair.first<<" : "<<ppair.second<<std::endl;
+>     }
+>     String deadline("");
+>     parcRequest.header().get("X-Fdsa-Long-Request-Deadline", &deadline);
+>     if (!deadline.empty()) std::cout<<"Long running deadline value exists :"<<deadline<<std::endl;
+>     if (!parcRequest.header().exists(longRunningDeadlineHeader))
+>     {
+>       std::cout<<"Long running header does'n exists so adding that"<<std::endl;
+>       static const int lrrTime = get_logical_int("PARC_ENTRANCE_LRR_TIME", 10);
+>       parcRequest.header().set(longRunningDeadlineHeader, lrrTime);
+>     }

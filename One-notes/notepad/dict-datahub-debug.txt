@@ -1,0 +1,80 @@
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token FDSQAR_C 944881 'API issue'
+
+/home/user/rshah05/repo/factset_code/pa-data-dictionary-service/bin/pa-data-dictionary-service  --port 7743 --dbfile /home/dev/scratch/developers/smondal02/padd_feed_russell_test.proto --padd_diff_update_disable
+bin/pa-data-dictionary-service --port 7743 --dbfile /home/dev/scratch/developers/smondal02/padd_feed_config_test.proto --padd_diff_update_disable
+
+bin/pa-engine-service --port 7733
+bin/pa-engine-service --port 7788
+
+fdsrpc-pa-engine-host=unixdeva24:7733
+fdsrpc-pa-engine-host=unixdeva24:7788
+
+
+
+bin/pa-data-dictionary-service --port 7743 --dbfile /home/dev/scratch/developers/smondal02/padd_feed_russell_test.proto --padd_diff_update_disable
+
+
+Test
+---------------
+68C4A69F67C41C44
+04F7A95DBCCD893A
+
+Multiple run via excel doc - https://parcour.factset.io/#!/pants/run/254607/docs
+pa_logging_query2.pl --index pa_summary --results 40000 --days 90 --headers --search @fields.document,@fields.session.client,@fields.session.serial,@fields.universe.ports.id,@fields.universe.benches.id --filter '@fields.datasources.PriceDataSources.PortfolioPriceSources.uniqueId:"russell:price000&vendor derived:fisource000"' --and '@fields.run.parentapp:"pa-dispatch"' --and --not '@fields.datasources.PriceDataSources.PortfolioPriceSources.uniqueId:"factset:price000&vendor derived:fisource000"' --and --not '@fields.datasources.PriceDataSources.PortfolioPriceSources.uniqueId:"client:price001&vendor derived:fisource000"' --and --not '@fields.datasources.PriceDataSources.PortfolioPriceSources.uniqueId:"factset - options:price000&vendor derived:fisource000"' --and --not '@fields.session.serial:"FDS"' + > plq_query_output.xls
+
+PRICE
+ISO
+PA_RETURN
+"service": "pa-api-service",
+
+Test
+======
+fdsrpc_pa_engine_host=unixdeva24:7733
+fdsrpc-pa-engine-host=unixdeva24:7733
+fdsrpc-pa-engine-host=unixdeva24:7788
+
+Base
+=====
+fdsrpc_pa_engine_host=unixdeva24:7733
+
+Both
+=====
+ABORT_IF_ENGINE_SERVICE_GATE_CLOSED=1
+PARC_KEEP_TREE_INDEX=1
+ENGINE_SERVICE_FALLBACK_TO_PARC=0
+PARC_ROUTE_TO_PA_DISPATCH=1
+
+
+bin/pa-engine-service --port 7733
+bin/pa-data-dictionary-service --port 7743
+fdsrpc_pa_data_dictionary_host=unixdeva24:7743
+
+ 
+ Russsell
+ =========
+ 
+ {
+      "source_name": "Russell:PRICE000",
+      "fetching_request_type": "datahub-v1",
+      "service": "pa-document-canon",
+      "schema_endpoint": "/api/v1/pricing_data/schema",
+      "data_endpoint": "/dictionary",
+      "service_framework": "fdsav2",
+      "field_name_overrides": {
+        "price": "russell_price",
+        "total_return": "russell_pa_return",
+		"priceiso": "russell_iso"
+      }
+    },
+  
+  datahub
+  --------
+  {
+      "source_name": "Russell:PRICE000",
+      "service": "datahub-pricing",
+      "schema_endpoint": "/api/v1/pricing_data/schema",
+      "data_endpoint": "/api/v1/pricing_data",
+      "service_framework": "fdsav2",
+      "apply_fds_splits": true,
+	  "use_sdate_fetch_for_feelback": true
+    },

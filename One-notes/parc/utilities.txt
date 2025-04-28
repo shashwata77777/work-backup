@@ -1,3 +1,11 @@
+
+/home/fds/svc_lima/bin/lima_token smondal02 fds | /home/fds/svc_lima/bin/morph_token ADIA_UAE 1183252 'Testing'
+/home/user/smondal02/prebuild/final_change/paapi_troubleshooting_utility.py --date 20250315 --apiCalculationId C6007B103ACEC5DF428B244875F01550398092DC1D7F122D3EA8E3A235114DE7 --apiCalculationUnitId 1 --reason "RPD:114305067" 
+
+
+
+
+
 pa_arch_mgr quota
 /home/fonix/data/pa_arch/prod/pants3/local/production 
 
